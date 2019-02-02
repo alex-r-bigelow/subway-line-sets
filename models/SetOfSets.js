@@ -1,5 +1,10 @@
 import { Model } from '../../node_modules/uki/dist/uki.esm.js';
 
+const DEFAULT_SIZE = {
+  width: 512,
+  height: 512
+};
+
 class SetOfSets extends Model {
   constructor (sets, elements) {
     super();
@@ -28,7 +33,11 @@ SetOfSets.fromCsv = rawString => {
     const cols = row.split(',');
     const element = {
       name: cols[0],
-      memberships: {}
+      memberships: {},
+      position: {
+        x: Math.random() * DEFAULT_SIZE.width,
+        y: Math.random() * DEFAULT_SIZE.height
+      }
     };
     elements[cols[0]] = element;
     let colIndex = 1;
