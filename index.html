@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Subway Line Sets</title>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:700|Josefin+Slab:700" rel="stylesheet">
+    <script type="text/javascript" src="node_modules/d3/dist/d3.min.js"></script>
+    <link rel="stylesheet/less" type="text/css" href="style/style.less"/>
+    <script type="text/javascript" src="node_modules/less/dist/less.min.js" data-log-level="1"></script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div id="GraphicsView">
+      <svg id="doc">
+        <g>
+          <rect x="50" y="50" width="50" height="50"></rect>
+          <rect x="50" y="150" width="50" height="50"></rect>
+        </g>
+        <g>
+          <rect x="150" y="150" width="50" height="50"></rect>
+          <rect x="150" y="50" width="50" height="50"></rect>
+        </g>
+      </svg>
+      <svg id="overlay">
+      </svg>
+      <img id="loadingLayer" src="img/loading.svg"/>
+      <img id="emptyState" src="img/emptyState.svg" style="display:none"/>
+    </div>
+    <div id="SettingsView"></div>
+  </body>
+</html>

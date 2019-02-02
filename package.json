@@ -1,0 +1,26 @@
+{
+  "name": "subway-line-sets",
+  "version": "0.1.0",
+  "description": "A simple tool for generating subway-style line sets",
+  "main": "app.js",
+  "dependencies": {
+    "d3": "^5.8.0",
+    "less": "^3.9.0",
+    "serve": "^10.1.1",
+    "uki": "^0.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "serve": "serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-r-bigelow/subway-line-sets.git"
+  },
+  "author": "University of Arizona",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alex-r-bigelow/subway-line-sets/issues"
+  },
+  "homepage": "https://github.com/alex-r-bigelow/subway-line-sets#readme"
+}
