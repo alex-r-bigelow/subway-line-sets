@@ -1,3 +1,19 @@
 #GraphicsView {
-  
+  flex: 1 1 auto;
+  overflow: hidden;
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* CSS doesn't let us set width / height of SVG elements based on window size*/
+  }
+
+  #spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3em;
+    height: 3em;
+    transform: translate(-1.5em, -1.5em);
+  }
 }

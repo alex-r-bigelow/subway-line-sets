@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Subway Line Sets</title>
+    <title>Subway Set Visualization</title>
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:700|Josefin+Slab:700" rel="stylesheet">
     <script type="text/javascript" src="node_modules/d3/dist/d3.min.js"></script>
     <link rel="stylesheet/less" type="text/css" href="style/style.less"/>
@@ -11,21 +11,35 @@
   </head>
   <body>
     <div id="GraphicsView">
-      <svg id="doc">
-        <g>
-          <rect x="50" y="50" width="50" height="50"></rect>
-          <rect x="50" y="150" width="50" height="50"></rect>
-        </g>
-        <g>
-          <rect x="150" y="150" width="50" height="50"></rect>
-          <rect x="150" y="50" width="50" height="50"></rect>
-        </g>
-      </svg>
+      <img id="doc" src="img/Milano_Subway_map.svg">
+    </img>
       <svg id="overlay">
       </svg>
-      <img id="loadingLayer" src="img/loading.svg"/>
-      <img id="emptyState" src="img/emptyState.svg" style="display:none"/>
+      <img id="spinner" src="img/spinner.gif"/>
     </div>
-    <div id="SettingsView"></div>
+    <div id="SettingsView" class="expanded">
+      <div id="collapseButton"></div>
+      <div id="content">
+        <h3>Subway Set Visualization</h3>
+        <h4>Load example data</h4>
+        <select id="examplePicker">
+          <option disabled>Select a dataset</option>
+          <option selected>simpsons.csv</option>
+          <option>fiveThirtyEight-bobRossPaintings.csv</option>
+        </select>
+        <h4>Upload your own data</h4>
+        <input type="file" id="uploadButton" />
+        <details>
+          <summary>How to format the CSV</summary>
+          <p>TODO: some really long text goes here</p>
+        </details>
+        <hr />
+        <p>TODO: selected item settings</p>
+        <hr />
+        <p>TODO: layout settings</p>
+        <hr />
+        <button id="downloadButton">Download SVG</button>
+      </div>
+    </div>
   </body>
 </html>
