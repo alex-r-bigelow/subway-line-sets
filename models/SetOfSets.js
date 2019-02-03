@@ -36,7 +36,8 @@ SetOfSets.fromCsv = rawString => {
       memberships: {},
       position: {
         x: Math.random() * DEFAULT_SIZE.width,
-        y: Math.random() * DEFAULT_SIZE.height
+        y: Math.random() * DEFAULT_SIZE.height,
+        fixed: false
       }
     };
     elements[cols[0]] = element;

@@ -1,5 +1,5 @@
-/* globals d3 */
 import { View } from '../node_modules/uki/dist/uki.esm.js';
+import layoutFunctions from '../layouts/AllLayouts.js';
 
 class SettingsView extends View {
   setup () {
@@ -7,10 +7,29 @@ class SettingsView extends View {
       this.d3el.classed('expanded', !this.d3el.classed('expanded'));
       window.controller.renderAllViews();
     });
+
+    this.setupLayoutOptions();
   }
-  draw () {
-    
+  setupLayoutOptions () {
+    const layoutPicker = this.d3el.select('#layoutPicker');
+
+    const layoutList = [null].concat(Object.keys(layoutFunctions));
+    const layoutOptions = layoutPicker.selectAll('option')
+      .data(layoutList, d => d);
+    layoutOptions.enter().append('option')
+      .attr('value', d => d)
+      .property('disabled', d => d === null)
+      .text(d => d === null ? 'Select a layout' : layoutFunctions[d].interfaceLabel);
+    layoutPicker.on('change', async function () {
+      let temp = window.data;
+      delete window.data;
+      window.controller.renderAllViews();
+      temp = await layoutFunctions[this.value](temp);
+      window.data = temp;
+      window.controller.renderAllViews();
+    });
   }
+  draw () {}
 }
 
 export default SettingsView;
