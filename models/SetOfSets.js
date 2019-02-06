@@ -6,13 +6,14 @@ const DEFAULT_SIZE = {
 };
 
 class SetOfSets extends Model {
-  constructor (sets, elements) {
+  constructor (name, sets, elements) {
     super();
+    this.name = name;
     this.sets = sets;
     this.elements = elements;
   }
 }
-SetOfSets.fromCsv = rawString => {
+SetOfSets.fromCsv = (name, rawString) => {
   const elements = {};
   const sets = {};
 
@@ -70,6 +71,6 @@ SetOfSets.fromCsv = rawString => {
       });
   }
 
-  return new SetOfSets(sets, elements);
+  return new SetOfSets(name, sets, elements);
 };
 export default SetOfSets;

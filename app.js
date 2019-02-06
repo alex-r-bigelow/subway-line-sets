@@ -25,11 +25,25 @@ class Controller extends Model {
   }
   async loadExampleData (filename) {
     window.data = this.data = null;
-    this.renderAllViews();
-    const rawString = await d3.text(`exampleData/${filename}`);
-    window.data = this.data = SetOfSets.fromCsv(rawString);
     this.currentLayout = 'none';
     this.renderAllViews();
+    const rawString = await d3.text(`exampleData/${filename}`);
+    window.data = this.data = SetOfSets.fromCsv(filename, rawString);
+    this.renderAllViews();
+  }
+  async loadFileObject (fileObj) {
+    window.data = this.data = null;
+    this.currentLayout = 'none';
+    this.renderAllViews();
+    return new Promise((resolve, reject) => {
+      const reader = new window.FileReader();
+      reader.onload = event => {
+        window.data = this.data = SetOfSets.fromCsv(fileObj.name, event.target.result);
+        this.renderAllViews();
+        resolve();
+      };
+      reader.readAsText(fileObj);
+    });
   }
   async applyLayout (layoutName) {
     this.currentLayout = layoutName;

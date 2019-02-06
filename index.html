@@ -23,14 +23,9 @@
       <div id="content">
         <h3>Subway Set Visualization</h3>
         <h4>Load example data</h4>
-        <select id="examplePicker">
-          <option disabled>Select a dataset</option>
-          <option selected>slc.csv</option>
-          <option>simpsons.csv</option>
-          <option>fiveThirtyEight-bobRossPaintings.csv</option>
-        </select>
+        <select id="examplePicker"></select>
         <h4>Upload your own data</h4>
-        <input type="file" id="uploadButton" />
+        <input type="file" id="uploadButton" accept="text/csv"/>
         <details>
           <summary>How to format the CSV</summary>
           <p>For now, we only support CSV files that look like:</p>

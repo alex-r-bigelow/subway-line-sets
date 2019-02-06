@@ -1,11 +1,14 @@
 import { View } from '../node_modules/uki/dist/uki.esm.js';
 import layoutFunctions from '../layouts/allLayouts.js';
+import exampleList from '../exampleData/exampleList.js';
 
 class SettingsView extends View {
   setup () {
     this.setupCollapseButton();
     this.setupExamplePicker();
+    this.setupUploadButton();
     this.setupLayoutOptions();
+    this.setupDownloadButton();
   }
   setupCollapseButton () {
     this.d3el.select('#collapseButton').on('click', () => {
@@ -14,8 +17,24 @@ class SettingsView extends View {
     });
   }
   setupExamplePicker () {
-    this.d3el.select('#examplePicker').on('change', function () {
+    const examplePicker = this.d3el.select('#examplePicker');
+
+    const exampleOptions = examplePicker.selectAll('option')
+      .data(['none'].concat(exampleList), d => d);
+    exampleOptions.enter().append('option')
+      .attr('value', d => d)
+      .property('disabled', d => d === 'none')
+      .text(d => d === 'none' ? 'Select a dataset' : d);
+    examplePicker.on('change', function () {
+      this.d3el.select('#uploadButton').node().value = null;
       window.controller.loadExampleData(this.value);
+    });
+  }
+  setupUploadButton () {
+    this.d3el.select('#uploadButton').on('change', function () {
+      if (this.files.length > 0) {
+        window.controller.loadFileObject(this.files[0]);
+      }
     });
   }
   setupLayoutOptions () {
@@ -32,7 +51,13 @@ class SettingsView extends View {
       window.controller.applyLayout(this.value);
     });
   }
+  setupDownloadButton () {
+    this.d3el.select('#downloadButton').on('click', () => {
+      window.alert('sorry, not implemented yet');
+    });
+  }
   draw () {
+    this.d3el.select('#examplePicker').node().value = window.data && exampleList.indexOf(window.data.name) !== -1 ? window.data.name : 'none';
     this.d3el.select('#layoutPicker').node().value = window.controller.currentLayout;
   }
 }
