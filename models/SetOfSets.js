@@ -1,4 +1,4 @@
-import { Model } from '../../node_modules/uki/dist/uki.esm.js';
+import { Model } from '../node_modules/uki/dist/uki.esm.js';
 
 const DEFAULT_SIZE = {
   width: 512,
