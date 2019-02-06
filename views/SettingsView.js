@@ -1,14 +1,22 @@
 import { View } from '../node_modules/uki/dist/uki.esm.js';
-import layoutFunctions from '../layouts/AllLayouts.js';
+import layoutFunctions from '../layouts/allLayouts.js';
 
 class SettingsView extends View {
   setup () {
+    this.setupCollapseButton();
+    this.setupExamplePicker();
+    this.setupLayoutOptions();
+  }
+  setupCollapseButton () {
     this.d3el.select('#collapseButton').on('click', () => {
       this.d3el.classed('expanded', !this.d3el.classed('expanded'));
       window.controller.renderAllViews();
     });
-
-    this.setupLayoutOptions();
+  }
+  setupExamplePicker () {
+    this.d3el.select('#examplePicker').on('change', () => {
+      window.controller.loadExampleData(this.d3el.select('#examplePicker').node().value);
+    });
   }
   setupLayoutOptions () {
     const layoutPicker = this.d3el.select('#layoutPicker');

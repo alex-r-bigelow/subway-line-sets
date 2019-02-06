@@ -1,5 +1,5 @@
 ﻿,Blue,Red,Green,S Line,FrontRunner
-Salt Lake Central Station,1,0,0,0,8
+Salt Lake Central Station,1,0,0,0,9
 Old Greektown Station,2,0,0,0,0
 Planetarium Station,3,0,0,0,0
 Arena Station,4,0,12,0,0
@@ -13,7 +13,7 @@ Central Pointe Station,11,11,5,7,0
 Millcreek Station,12,12,0,0,0
 Meadowbrook Station,13,13,0,0,0
 Murray North Station,14,14,0,0,0
-Murray Central Station,15,15,0,0,9
+Murray Central Station,15,15,0,0,10
 Fashion Place West Station,16,16,0,0,0
 Midvale Fort Union Station,17,0,0,0,0
 Midvale Center Station,18,0,0,0,0
@@ -47,7 +47,7 @@ North Temple Bridge/Guadalupe,0,0,13,0,0
 Jackson/Euclid Station,0,0,14,0,0
 Fairpark Station,0,0,15,0,0
 Power Station,0,0,16,0,0
-North Temple Station,0,0,17,0,7
+North Temple Station,0,0,17,0,8
 Airport Station,0,0,18,0,0
 Fairmont Station,0,0,0,1,0
 Sugarmont Station,0,0,0,2,0
@@ -55,16 +55,16 @@ Sugarmont Station,0,0,0,2,0
 500 East Station,0,0,0,4,0
 300 East Station,0,0,0,5,0
 South Salt Lake City Station,0,0,0,6,0
-Pleasant View Station,0,0,0,0,0
-Ogden Station,0,0,0,0,1
-Roy Station,0,0,0,0,2
-Clearfield Station,0,0,0,0,3
-Layton Station,0,0,0,0,4
-Farmington Station,0,0,0,0,5
-Woods Cross Station,0,0,0,0,6
-South Jordan Station,0,0,0,0,10
-Draper Station,0,0,0,0,11
-Lehi Station,0,0,0,0,12
-American Fork Station,0,0,0,0,13
-Orem Central Station,0,0,0,0,14
-Provo Central Station,0,0,0,0,15
+Pleasant View Station,0,0,0,0,1
+Ogden Station,0,0,0,0,2
+Roy Station,0,0,0,0,3
+Clearfield Station,0,0,0,0,4
+Layton Station,0,0,0,0,5
+Farmington Station,0,0,0,0,6
+Woods Cross Station,0,0,0,0,7
+South Jordan Station,0,0,0,0,11
+Draper Station,0,0,0,0,12
+Lehi Station,0,0,0,0,13
+American Fork Station,0,0,0,0,14
+Orem Central Station,0,0,0,0,15
+Provo Central Station,0,0,0,0,16

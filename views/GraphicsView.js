@@ -32,7 +32,6 @@ class GraphicsView extends View {
     if (!window.data) {
       this.spinner.style('display', null);
       this.doc.style('opacity', 0.5);
-      this.overlay.html('');
     } else {
       this.doc.style('opacity', null);
       this.spinner.style('display', 'none');

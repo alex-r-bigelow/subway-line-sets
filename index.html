@@ -33,7 +33,32 @@
         <input type="file" id="uploadButton" />
         <details>
           <summary>How to format the CSV</summary>
-          <p>TODO: some really long text goes here</p>
+          <p>For now, we only support CSV files that look like:</p>
+          <textarea rows="5" readonly class="csvsample">
+,School,Blue Hair,Duff Fan
+Lisa,1,0,0
+Bart,1,0,0
+Homer,0,0,1
+Marge,0,1,0
+          </textarea>
+          <p>
+            Each row should be a set member, each column should be a set, and a non-zero
+            number indicates that the row is a member of the column.
+          </p>
+          <p>
+            If you have ordered sets (such as in actual subway lines), the value can be
+            used to indicate each row's position in its column set. For example, this file:
+          </p>
+          <textarea rows="4" readonly class="csvsample">
+,A,B,C
+X,1,0,2
+Y,2,1,0
+Z,0,2,1
+          </textarea>
+          <p>
+            means that set A contains X, then Y; set B contains Y, then Z, and set C contains
+            Z, then X.
+          </p>
         </details>
         <hr />
         <p>TODO: selected item settings</p>
