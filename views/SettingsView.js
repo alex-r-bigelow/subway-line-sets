@@ -14,30 +14,27 @@ class SettingsView extends View {
     });
   }
   setupExamplePicker () {
-    this.d3el.select('#examplePicker').on('change', () => {
-      window.controller.loadExampleData(this.d3el.select('#examplePicker').node().value);
+    this.d3el.select('#examplePicker').on('change', function () {
+      window.controller.loadExampleData(this.value);
     });
   }
   setupLayoutOptions () {
     const layoutPicker = this.d3el.select('#layoutPicker');
 
-    const layoutList = [null].concat(Object.keys(layoutFunctions));
+    const layoutList = ['none'].concat(Object.keys(layoutFunctions));
     const layoutOptions = layoutPicker.selectAll('option')
       .data(layoutList, d => d);
     layoutOptions.enter().append('option')
       .attr('value', d => d)
-      .property('disabled', d => d === null)
-      .text(d => d === null ? 'Select a layout' : layoutFunctions[d].interfaceLabel);
+      .property('disabled', d => d === 'none')
+      .text(d => d === 'none' ? 'Select a layout' : layoutFunctions[d].interfaceLabel);
     layoutPicker.on('change', async function () {
-      let temp = window.data;
-      delete window.data;
-      window.controller.renderAllViews();
-      temp = await layoutFunctions[this.value](temp);
-      window.data = temp;
-      window.controller.renderAllViews();
+      window.controller.applyLayout(this.value);
     });
   }
-  draw () {}
+  draw () {
+    this.d3el.select('#layoutPicker').node().value = window.controller.currentLayout;
+  }
 }
 
 export default SettingsView;
