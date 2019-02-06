@@ -12,8 +12,9 @@
   <body>
     <div id="GraphicsView">
       <svg id="doc">
-      </svg>
-      <svg id="overlay">
+        <g id="linkLayer"></g>
+        <g id="nodeLayer"></g>
+        <g id="overlay"></g>
       </svg>
       <img id="spinner" src="img/spinner.gif"/>
     </div>
@@ -24,7 +25,8 @@
         <h4>Load example data</h4>
         <select id="examplePicker">
           <option disabled>Select a dataset</option>
-          <option selected>simpsons.csv</option>
+          <option selected>slc.csv</option>
+          <option>simpsons.csv</option>
           <option>fiveThirtyEight-bobRossPaintings.csv</option>
         </select>
         <h4>Upload your own data</h4>

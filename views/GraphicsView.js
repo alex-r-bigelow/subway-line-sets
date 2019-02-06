@@ -12,15 +12,21 @@ class GraphicsView extends View {
   }
   setup () {
     this.doc = this.d3el.select('#doc');
-    this.overlay = this.d3el.select('#overlay');
+    this.currentZoom = d3.zoomTransform(this.doc.node());
+    const zoom = d3.zoom()
+      .scaleExtent([1 / 4, 4])
+      .on('zoom', () => {
+        this.currentZoom = d3.event.transform;
+        this.doc.selectAll(':scope > g')
+          .attr('transform', this.currentZoom);
+      });
+    this.doc.call(zoom);
     this.spinner = this.d3el.select('#spinner');
   }
   draw () {
     const bounds = this.d3el.node()
       .getBoundingClientRect();
     this.doc.attr('width', bounds.width)
-      .attr('height', bounds.height);
-    this.overlay.attr('width', bounds.width)
       .attr('height', bounds.height);
 
     if (!window.data) {
@@ -37,16 +43,13 @@ class GraphicsView extends View {
     }
   }
   drawLinkLayer () {
-    let linkLayer = this.doc.select('.linkLayer');
-    if (linkLayer.size() === 0) {
-      linkLayer = this.doc.append('g')
-        .classed('linkLayer', true);
-    }
+    let linkLayer = this.doc.select('#linkLayer');
 
     let links = linkLayer.selectAll('.link')
       .data(d3.entries(window.data.sets), d => d.key);
     links.exit().remove();
-    const linksEnter = links.enter().append('g');
+    const linksEnter = links.enter().append('g')
+      .classed('link', true);
     links = links.merge(linksEnter);
 
     linksEnter.append('path');
@@ -59,11 +62,7 @@ class GraphicsView extends View {
       });
   }
   drawNodeLayer () {
-    let nodeLayer = this.doc.select('.nodeLayer');
-    if (nodeLayer.size() === 0) {
-      nodeLayer = this.doc.append('g')
-        .classed('nodeLayer', true);
-    }
+    let nodeLayer = this.doc.select('#nodeLayer');
 
     let nodes = nodeLayer.selectAll('.node')
       .data(d3.entries(window.data.elements), d => d.key);

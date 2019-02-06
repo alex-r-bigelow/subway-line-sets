@@ -13,7 +13,7 @@ class Controller extends Model {
       new SettingsView(d3.select('#SettingsView'))
     ];
 
-    this.loadExampleData('simpsons.csv');
+    this.loadExampleData('slc.csv');
   }
   renderAllViews () {
     for (const view of this.views) {

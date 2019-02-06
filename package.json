@@ -4,9 +4,9 @@
   "description": "A simple tool for generating subway-style line sets",
   "main": "app.js",
   "dependencies": {
-    "d3": "^5.8.0",
+    "d3": "^5.8.2",
     "less": "^3.9.0",
-    "serve": "^10.1.1",
+    "serve": "^10.1.2",
     "uki": "^0.2.5"
   },
   "devDependencies": {},

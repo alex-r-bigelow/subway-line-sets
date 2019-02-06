@@ -8,7 +8,8 @@
 */
 
 async function forceDirectedNodes (setOfSets) {
-  // Convert the nodes to the format that D3 expects
+  // Convert the nodes to the format that D3 expects, and create
+  // a lookup while we're at it
   const nodes = Object.values(setOfSets.elements).map(element => {
     const d3Node = {
       name: element.name,
@@ -30,26 +31,37 @@ async function forceDirectedNodes (setOfSets) {
 
   // D3 also expects links as an array
   const links = [];
+  const linkLookup = {};
 
   // Connect nodes to their adjacent neighbors in each ordered set
   for (const setObj of Object.values(setOfSets.sets)) {
+    let lastElementName = null;
     for (const elementName of setObj.members) {
-      links.push({
-        source: nodeLookup[elementName],
-        target: nodeLookup[elementName]
-      });
+      if (lastElementName) {
+        // Don't create an edge if it already exists
+        if (linkLookup[lastElementName + '_' + elementName] !== undefined ||
+            linkLookup[elementName + '_' + lastElementName] !== undefined) {
+          continue;
+        }
+        linkLookup[lastElementName + '_' + elementName] = links.length;
+        links.push({
+          source: nodeLookup[lastElementName],
+          target: nodeLookup[elementName]
+        });
+      }
+      lastElementName = elementName;
     }
   }
 
   // Initialize the simulation
   const simulation = d3.forceSimulation(nodes)
-    .force('charge', d3.forceManyBody().strength(-80))
-    .force('link', d3.forceLink(links).distance(30).strength(1).iterations(10))
-    .force('x', d3.forceX())
-    .force('y', d3.forceY())
+    .force('charge', d3.forceManyBody().strength(-160))
+    .force('link', d3.forceLink(links).distance(100).strength(1).iterations(10))
+    .force('x', d3.forceX(256))
+    .force('y', d3.forceY(256))
     .stop();
 
-  // Running the simulation takes a while; we use a Promise + timeout to make
+  // Running the simulation can take a while; we use a Promise + timeout to make
   // sure we don't lock up the interface while we're computing things
   return new Promise((resolve, reject) => {
     d3.timeout(() => {
@@ -60,8 +72,8 @@ async function forceDirectedNodes (setOfSets) {
 
       // Copy the new positions back to the original elements
       for (const node of nodes) {
-        setOfSets.elements[node.name].x = node.x;
-        setOfSets.elements[node.name].y = node.y;
+        setOfSets.elements[node.name].position.x = node.x;
+        setOfSets.elements[node.name].position.y = node.y;
       }
 
       // Signal that we're done
