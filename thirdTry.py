@@ -13,16 +13,17 @@ class PrioritizedItem:
 
 class Vertex:
     def __init__(self, arrayOfEdges, number):
-        self.arrayOfEdges = arrayOfEdges
-        self.number = number
-        self.arrayOfContaining = np.full((len(arrayOfEdges)), number)
+        self.arrayOfEdges = arrayOfEdges # one-hot encoded numpy vector, with indices corresponding to Hyperedge IDs (integer "value"s)
+        self.number = number # number == integer ID
+        self.arrayOfContaining = np.full((len(arrayOfEdges)), number) # what does this do?
 
 class Edge:
     def __init__(self, firstVertex, secondVertex, distance, hypSize):
-        self.firstVertex = firstVertex
-        self.secondVertex = secondVertex
-        self.distance = distance
-        self.hyperEdge = np.zeros(hypSize)
+        self.firstVertex = firstVertex # Vertex object
+        self.secondVertex = secondVertex # Vertex object
+        self.distance = distance # some kind of float / weighting that indicates how far apart vertices should be, but NOT used to compute the layout (only used to order edges)
+        self.hyperEdge = np.zeros(hypSize) # one-hot encoded numpy vector, indices corresponding to hyperedge IDs (integer "value"s)
+        # TODO: self.hyperEdgeOrder = [ ... numeric hyperedge IDs ... ]
 
 class Graph:
     def __init__(self, vertices, edges):
@@ -31,17 +32,17 @@ class Graph:
 
 class Hypervertex:
     def __init__(self, setOfEdges, number):
-        self.setOfEdges = setOfEdges
-        self.number = number
+        self.setOfEdges = setOfEdges # set containing Hyperedge IDs (integer "value"s)
+        self.number = number # number == integer ID
 
 class Hyperedge:
     def __init__(self, value):
-        self.value = value
+        self.value = value # value == integer ID
 
 class Hypergraph:
     def __init__(self, vertices, edges):
-        self.vertices = vertices
-        self.edges = edges
+        self.vertices = vertices # set of Hypervertices
+        self.edges = edges # set of Hyperedges
 
 def distance2(vertex, vertex2, edgeNumber):
     summation = 0
@@ -189,7 +190,7 @@ def hypergraphToGraph(hypergraph):
 
             if vertex.number < vertex2.number:
                 dist = distance(vertex, vertex2, edgeNumber)
-                e = Edge(vertex, vertex2, dist, edgeNumber)
+                e = Edge(vertex, vertex2, dist, edgeNumber) # Every pairwise vertex combination INITIALLLY gets an Edge object
                 edgeChanger(vertex, vertex2, e, edgeNumber)
                 obj = PrioritizedItem(dist, e)
                 edgeSet.append(obj)
@@ -240,11 +241,11 @@ g = hypergraphToGraph(h)
 #e1 = heapq.heappop(g.edges)
 #print(e1.item.hyperEdge[2])
 
-list = strangeSteinerProblem4(g)
+list = strangeSteinerProblem4(g) # list of Edge objects, filters to only the ones that will be rendered
 
 
 r = graphToNetworkX(list, len(ver))
-p = graphToMultiNetworkX(list, len(ver))
+p = graphToMultiNetworkX(list, len(ver)) # writes dot file; p not used?
 s = forceDirectedStuff(r)
 #s = forceDirectedStuff(p)
 #A = nx.nx_agraph.to_agraph(s)
@@ -252,7 +253,3 @@ nx.draw(r, s)
 for a in list:
     print(str(a.firstVertex.number) + "," + str(a.secondVertex.number) + ";" + str(a.distance))
 #mpl.show()
-
-
-
-

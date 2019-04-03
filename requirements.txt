@@ -1,1 +1,4 @@
 Flask==1.0.2
+networkx==2.2
+numpy==1.16.2
+dataclasses==0.6

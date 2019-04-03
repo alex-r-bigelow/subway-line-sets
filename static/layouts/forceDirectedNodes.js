@@ -10,11 +10,11 @@
 async function forceDirectedNodes (setOfSets) {
   // Convert the nodes to the format that D3 expects, and create
   // a lookup while we're at it
-  const nodes = Object.values(setOfSets.elements).map(element => {
+  const nodes = Object.values(setOfSets.vertices).map(vertex => {
     const d3Node = {
-      name: element.name,
-      x: element.position.x,
-      y: element.position.y
+      name: vertex.name,
+      x: vertex.position.x,
+      y: vertex.position.y
     };
     if (d3Node.fixed) {
       d3Node.fx = d3Node.x;
@@ -34,9 +34,9 @@ async function forceDirectedNodes (setOfSets) {
   const linkLookup = {};
 
   // Connect nodes to their adjacent neighbors in each ordered set
-  for (const setObj of Object.values(setOfSets.sets)) {
+  for (const hyperedge of Object.values(setOfSets.hyperedges)) {
     let lastElementName = null;
-    for (const elementName of setObj.members) {
+    for (const elementName of hyperedge.order) {
       if (lastElementName) {
         // Don't create an edge if it already exists
         if (linkLookup[lastElementName + '_' + elementName] !== undefined ||
@@ -70,10 +70,10 @@ async function forceDirectedNodes (setOfSets) {
         simulation.tick();
       }
 
-      // Copy the new positions back to the original elements
+      // Copy the new positions back to the original vertices
       for (const node of nodes) {
-        setOfSets.elements[node.name].position.x = node.x;
-        setOfSets.elements[node.name].position.y = node.y;
+        setOfSets.vertices[node.name].position.x = node.x;
+        setOfSets.vertices[node.name].position.y = node.y;
       }
 
       // Signal that we're done

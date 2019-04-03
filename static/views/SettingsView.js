@@ -25,8 +25,9 @@ class SettingsView extends View {
       .attr('value', d => d)
       .property('disabled', d => d === 'none')
       .text(d => d === 'none' ? 'Select a dataset' : d);
+    const self = this;
     examplePicker.on('change', function () {
-      this.d3el.select('#uploadButton').node().value = null;
+      self.d3el.select('#uploadButton').node().value = null;
       window.controller.loadExampleData(this.value);
     });
   }

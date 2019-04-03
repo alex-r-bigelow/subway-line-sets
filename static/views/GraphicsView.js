@@ -45,7 +45,7 @@ class GraphicsView extends View {
     let linkLayer = this.doc.select('#linkLayer');
 
     let links = linkLayer.selectAll('.link')
-      .data(d3.entries(window.data.sets), d => d.key);
+      .data(d3.entries(window.data.hyperedges), d => d.key);
     links.exit().remove();
     const linksEnter = links.enter().append('g')
       .classed('link', true);
@@ -64,7 +64,7 @@ class GraphicsView extends View {
     let nodeLayer = this.doc.select('#nodeLayer');
 
     let nodes = nodeLayer.selectAll('.node')
-      .data(d3.entries(window.data.elements), d => d.key);
+      .data(d3.entries(window.data.vertices), d => d.key);
     nodes.exit().remove();
     const nodesEnter = nodes.enter().append('g')
       .classed('node', true);
@@ -88,14 +88,14 @@ class GraphicsView extends View {
   drawOverlay () {
 
   }
-  computePath (setObj) {
+  computePath (hyperedge) {
     let result = 'M';
-    for (const elementName of setObj.members) {
+    for (const vertexName of hyperedge.order) {
       if (result.length > 1) {
         result += 'L';
       }
-      const elementObj = window.data.elements[elementName];
-      result += `${elementObj.position.x},${elementObj.position.y}`;
+      const vertex = window.data.vertices[vertexName];
+      result += `${vertex.position.x},${vertex.position.y}`;
     }
     return result;
   }

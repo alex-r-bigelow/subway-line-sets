@@ -6,54 +6,61 @@ const DEFAULT_SIZE = {
 };
 
 class SetOfSets extends Model {
-  constructor (name, sets, elements) {
+  constructor (name, hyperedges, vertices) {
     super();
     this.name = name;
-    this.sets = sets;
-    this.elements = elements;
+    this.hyperedges = hyperedges;
+    this.vertices = vertices;
+  }
+  toJSON () {
+    return JSON.stringify({
+      name: this.name,
+      hyperedges: this.hyperedges,
+      vertices: this.vertices
+    });
   }
 }
 SetOfSets.fromCsv = (name, rawString) => {
-  const elements = {};
-  const sets = {};
+  const vertices = {};
+  const hyperedges = {};
 
   const rows = rawString.split('\n');
 
   // Get the headers
   const headers = rows[0].split(',');
   for (const header of headers.slice(1)) {
-    sets[header] = {
+    hyperedges[header] = {
       name: header,
-      ordered: false,
-      members: []
+      fixedOrder: false,
+      order: []
     };
   }
 
   // Parse each row
   for (const row of rows.slice(1)) {
     const cols = row.split(',');
-    const element = {
+    const vertex = {
       name: cols[0],
       memberships: {},
       position: {
         x: Math.random() * DEFAULT_SIZE.width,
-        y: Math.random() * DEFAULT_SIZE.height,
-        fixed: false
-      }
+        y: Math.random() * DEFAULT_SIZE.height
+      },
+      fixed: false
     };
-    elements[cols[0]] = element;
+    vertices[cols[0]] = vertex;
     let colIndex = 1;
     for (let memberIndex of cols.slice(1)) {
       memberIndex = parseInt(memberIndex);
       if (memberIndex >= 1) {
-        const setName = headers[colIndex];
-        sets[setName].members.push({
-          element: element.name,
+        const hyperedgeName = headers[colIndex];
+        hyperedges[hyperedgeName].order.push({
+          name: vertex.name,
           memberIndex
         });
-        element.memberships[setName] = true;
+        vertex.memberships[hyperedgeName] = true;
         if (memberIndex > 1) {
-          sets[setName].ordered = true;
+          hyperedges[hyperedgeName].fixedOrder = true;
         }
       }
       colIndex++;
@@ -62,15 +69,15 @@ SetOfSets.fromCsv = (name, rawString) => {
 
   // At this point, we know whether sets are ordered,
   // so we can sort + flatten their members lists
-  for (const setObj of Object.values(sets)) {
-    setObj.members = setObj.members
+  for (const hyperedge of Object.values(hyperedges)) {
+    hyperedge.order = hyperedge.order
       .sort((a, b) => {
         return a.memberIndex - b.memberIndex;
-      }).map(elementObj => {
-        return elementObj.element;
+      }).map(nameWrapper => {
+        return nameWrapper.name;
       });
   }
 
-  return new SetOfSets(name, sets, elements);
+  return new SetOfSets(name, hyperedges, vertices);
 };
 export default SetOfSets;
