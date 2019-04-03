@@ -3,6 +3,7 @@ export default {
     'vertexID': {
       'position': { 'x': 0, 'y': 0 },
       'fixed': false,
+      'memberships': { 'hyperedgeID': true },
       'name': 'Some label',
       'size': '2em'
     }
