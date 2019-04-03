@@ -3,7 +3,7 @@ subway-line-sets
 
 A simple tool for generating subway-style line sets
 
-[Live deployment](https://alex-r-bigelow.github.io/subway-line-sets)
+TODO: link to live deployment
 
 Installation
 ============
