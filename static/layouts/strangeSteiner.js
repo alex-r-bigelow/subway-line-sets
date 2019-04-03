@@ -8,7 +8,6 @@ async function strangeSteiner (setOfSets) {
   const rawToScreen = d3.scaleLinear()
     .domain([-1, 1])
     .range([0, 1024]);
-  console.log(newPositions);
   for (const [vertexName, position] of Object.entries(newPositions)) {
     position.x = rawToScreen(position.x);
     position.y = rawToScreen(position.y);
