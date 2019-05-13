@@ -79,6 +79,45 @@ def update(edge, vertices):
                 updateVertex(v2, i)
                 updateComp(vertices, v1.arrayOfContaining[i], v2.arrayOfContaining[i], i)
 
+# returns the correct order for a given hyperedge
+def returnHyperedgeOrder(hyperedge, edges):
+    order = []
+    listOfEdges = []
+    for e in edges:
+        if(e.hyperEdge[hyperedge] > 1):
+            listOfEdges.append(e)
+    firstEdge = listOfEdges[0]
+    listOfEdges.remove(firstEdge)
+    v = firstEdge.firstVertex
+    order.append(v)
+    w = firstEdge.secondVertex
+    order.append(w)
+    while(len(listOfEdges) > 0):
+        print(len(listOfEdges))
+        for e in listOfEdges:
+            if e.firstVertex == v:
+                v = e.secondVertex
+                order.insert(0,v)
+                listOfEdges.remove(e)
+                break
+            if e.secondVertex == v:
+                v = e.firstVertex
+                order.insert(0,v)
+                listOfEdges.remove(e)
+                break
+            if e.firstVertex == w:
+                w = e.secondVertex
+                order.append(w)
+                listOfEdges.remove(e)
+                break
+            if e.secondVertex == w:
+                w = e.firstVertex
+                order.append(w)
+                listOfEdges.remove(e)
+                break
+
+    return order                
+                
 def strangeSteinerProblem4(g):
     orderEdges = []
     edges = g.edges
